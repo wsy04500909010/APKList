@@ -1,4 +1,4 @@
-package com.italkbb.apklist;
+package com.italkbb.test;
 
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.italkbb.apklist.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ import java.util.List;
  * Created by WangSiYe on 2018/12/10.
  * 测试更改
  */
-public class AppsAdapter<T> extends RecyclerView.Adapter<com.italkbb.apklist.AppsAdapter.ViewHolder> {
+public class AppsAdapter<T> extends RecyclerView.Adapter<AppsAdapter.ViewHolder> {
 
 
     public interface OnItemClickListener {
@@ -59,7 +61,7 @@ public class AppsAdapter<T> extends RecyclerView.Adapter<com.italkbb.apklist.App
 
     @NonNull
     @Override
-    public com.italkbb.apklist.AppsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AppsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_apps_recyclerview, parent, false);
         ViewHolder holder = new ViewHolder(view);
@@ -87,10 +89,10 @@ public class AppsAdapter<T> extends RecyclerView.Adapter<com.italkbb.apklist.App
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final com.italkbb.apklist.AppsAdapter.ViewHolder holder, final int position) {
-        String content = ((com.italkbb.test.MyAppInfo) mList.get(position)).getAppName();
+    public void onBindViewHolder(@NonNull final AppsAdapter.ViewHolder holder, final int position) {
+        String content = ((MyAppInfo) mList.get(position)).getAppName();
         holder.tv_name.setText(content);
-        String content1 = ((com.italkbb.test.MyAppInfo) mList.get(position)).getPackageName();
+        String content1 = ((MyAppInfo) mList.get(position)).getPackageName();
         holder.tv_package.setText(content1);
 
         Drawable icon = ((MyAppInfo) mList.get(position)).getImage();

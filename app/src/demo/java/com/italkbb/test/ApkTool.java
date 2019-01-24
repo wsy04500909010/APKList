@@ -1,11 +1,9 @@
-package com.italkbb.apklist;
+package com.italkbb.test;
 
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
-
-import com.italkbb.test.MyAppInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +14,11 @@ import java.util.List;
  */
 public class ApkTool {
     static String TAG = "ApkTool";
-    public static List<com.italkbb.test.MyAppInfo> mLocalInstallApps = null;
+    public static List<MyAppInfo> mLocalInstallApps = null;
     public static boolean customOnly = false;
 
-    public static List<com.italkbb.test.MyAppInfo> scanLocalInstallAppList(PackageManager packageManager) {
-        List<com.italkbb.test.MyAppInfo> myAppInfos = new ArrayList<com.italkbb.test.MyAppInfo>();
+    public static List<MyAppInfo> scanLocalInstallAppList(PackageManager packageManager) {
+        List<MyAppInfo> myAppInfos = new ArrayList<MyAppInfo>();
         try {
             List<PackageInfo> packageInfos = packageManager.getInstalledPackages(0);
             for (int i = 0; i < packageInfos.size(); i++) {
@@ -29,7 +27,7 @@ public class ApkTool {
                 if ((ApplicationInfo.FLAG_SYSTEM & packageInfo.applicationInfo.flags) != 0 && customOnly) {
                     continue;
                 }
-                com.italkbb.test.MyAppInfo myAppInfo = new MyAppInfo();
+                MyAppInfo myAppInfo = new MyAppInfo();
                 myAppInfo.setPackageName(packageInfo.packageName);
 
                 myAppInfo.setAppName(packageInfo.applicationInfo.loadLabel(packageManager).toString());

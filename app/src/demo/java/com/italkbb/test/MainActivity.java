@@ -1,4 +1,4 @@
-package com.italkbb.apklist;
+package com.italkbb.test;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,9 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.italkbb.test.ApkTool;
-import com.italkbb.test.AppsAdapter;
-import com.italkbb.test.MyAppInfo;
+import com.italkbb.apklist.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements com.italkbb.test.
     ProgressBar progressbar;
 
     com.italkbb.test.AppsAdapter appsAdapter;
-    List<com.italkbb.test.MyAppInfo> myAppInfoList;
+    List<MyAppInfo> myAppInfoList;
 
     Handler mHandler = new Handler();
 
@@ -56,12 +54,12 @@ public class MainActivity extends AppCompatActivity implements com.italkbb.test.
         rv.setLayoutManager(glm);
 
         myAppInfoList = new ArrayList<>();
-        appsAdapter = new AppsAdapter(myAppInfoList);
+        appsAdapter = new com.italkbb.test.AppsAdapter(myAppInfoList);
         appsAdapter.setOnItemClickListener(this);
 
         rv.setAdapter(appsAdapter);
 
-        Animation alphaAnimation = AnimationUtils.loadAnimation(com.italkbb.apklist.MainActivity.this, R.anim.text_twinkle);
+        Animation alphaAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.text_twinkle);
 
         tv_title.startAnimation(alphaAnimation);
 
@@ -76,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements com.italkbb.test.
             public void run() {
                 super.run();
                 //扫描得到APP列表
-                final List<com.italkbb.test.MyAppInfo> appInfos = com.italkbb.test.ApkTool.scanLocalInstallAppList(com.italkbb.apklist.MainActivity.this.getPackageManager());
+                final List<MyAppInfo> appInfos = com.italkbb.test.ApkTool.scanLocalInstallAppList(MainActivity.this.getPackageManager());
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -95,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements com.italkbb.test.
     @Override
     public void onItemClick(View v) {
         int position = (int) v.getTag();
-        startThridApp(this, ((com.italkbb.test.MyAppInfo) appsAdapter.getmList().get(position)).getPackageName());
+        startThridApp(this, ((MyAppInfo) appsAdapter.getmList().get(position)).getPackageName());
     }
 
     /**
@@ -126,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements com.italkbb.test.
                     public void run() {
                         super.run();
                         //扫描得到APP列表
-                        final List<MyAppInfo> appInfos = ApkTool.scanLocalInstallAppList(com.italkbb.apklist.MainActivity.this.getPackageManager());
+                        final List<MyAppInfo> appInfos = com.italkbb.test.ApkTool.scanLocalInstallAppList(MainActivity.this.getPackageManager());
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {

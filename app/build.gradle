@@ -9,12 +9,59 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //必须要保证所有的flavor 都属于同一个维度 不加这句报错
+        flavorDimensions "default"
+    }
+    signingConfigs {
+        config {
+            storeFile file('../certificate/apklistkey.jks')
+            storePassword 'italkbb'
+            keyAlias 'apklistkey'
+            keyPassword 'italkbb'
+        }
+        release {//这里是根据图形化界面 生成的
+            keyAlias 'apklistkey'
+            keyPassword 'italkbb'
+            storeFile file('/Users/WSY/Documents/androidstudio_workspace/apklist/certificate/apklistkey.jks')
+            storePassword 'italkbb'
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName
+                if (variant.buildType.name == "release") {
+                    // 输出apk名称为 Applist+版本号+.apk
+                    fileName = "Applist${variant.versionName}.apk"
+                } else {
+                    //输出apk名称为 Applist+版本号+"_"+Test.apk
+                    fileName = "Applist${variant.versionName}_${"Test"}_debug.apk"
+                }
+                outputFileName = fileName
+            }
+
+        }
+    }
+
+    productFlavors {
+        yes {
+            applicationId 'com.italkbb.full'
+            versionName '1.0-shengchan'
+        }
+        demo {
+            applicationId 'com.italkbb.test'
+            versionName '1.0-demo'
+        }
+
     }
 }
 
